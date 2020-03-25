@@ -1,0 +1,4 @@
+
+.idea
+*.iml
+!/src/main/java/org/softuni/productshop/web/controllers/ProductController.java

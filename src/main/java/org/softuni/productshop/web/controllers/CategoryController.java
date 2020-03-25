@@ -1,0 +1,101 @@
+package org.softuni.productshop.web.controllers;
+
+import org.modelmapper.ModelMapper;
+import org.softuni.productshop.domain.entities.Category;
+import org.softuni.productshop.domain.models.binding.CategoryEditBindingModel;
+import org.softuni.productshop.domain.models.view.CategoryViewModel;
+import org.softuni.productshop.service.CategoryService;
+import org.softuni.productshop.service.CategoryServiceModel;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Controller
+@RequestMapping("/categories")
+public class CategoryController  extends BaseController {
+
+    private final CategoryService categoryService;
+    private final ModelMapper modelMapper;
+
+
+    public CategoryController(CategoryService categoryService, ModelMapper modelMapper) {
+        this.categoryService = categoryService;
+        this.modelMapper = modelMapper;
+    }
+
+    @GetMapping("/add")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView addCategory(){
+
+        return super.view("add-category");
+    }
+
+    @PostMapping("/add{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView addCategoryItem(@ModelAttribute CategoryEditBindingModel bindingModel){
+        this.categoryService.addCategory(this.modelMapper.map(bindingModel, CategoryServiceModel.class));
+
+        return super.redirect("/categories/all");
+
+
+    }
+    @GetMapping("/all" )
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView allCategory(ModelAndView modelAndView){
+        modelAndView.addObject("categories", this.categoryService
+                .findAllCategories().stream().map(c-> this.modelMapper.map(c, CategoryViewModel.class))
+                .collect(Collectors.toList()));
+        return super.view("all-categories", modelAndView);
+
+    }
+
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView editCategory(@PathVariable String id, ModelAndView modelAndView){
+        modelAndView.addObject("model",
+                this.modelMapper.map(this.categoryService.findCategoryById(id), CategoryViewModel.class));
+        return super.view("edit-category", modelAndView);
+
+    }
+
+    @PostMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView editCategoryConfirm(@PathVariable String id ,@ModelAttribute CategoryEditBindingModel model) {
+
+        this.categoryService.editCategory(id, this.modelMapper.map(model, CategoryServiceModel.class));
+    return super.redirect("/categories/all");
+    }
+
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView deleteCategory(@PathVariable String id, ModelAndView modelAndView){
+        modelAndView.addObject("model",
+                this.modelMapper.map(this.categoryService.findCategoryById(id), CategoryViewModel.class));
+        return super.view("delete-category", modelAndView);
+
+
+    }
+    @PostMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    public ModelAndView deleteCategoryConfirm(@PathVariable String id) {
+
+        this.categoryService.deleteCategory(id);
+        return super.redirect("/categories/all");
+    }
+
+    @GetMapping("/fetch")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    @ResponseBody
+    public List<CategoryViewModel> fetchCategories(){
+
+        return this.categoryService.findAllCategories().stream()
+                .map(c -> this.modelMapper.map(c, CategoryViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+}
