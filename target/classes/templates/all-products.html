@@ -33,8 +33,15 @@
             <td class="col-md-2 text-center"th:text="${product.price}"></td>
             <td class="col-md-3 text-center">
                 <a th:href="@{/products/details/{id}(id=${product.id})}" class="btn btn-secondary font-weight-bold text-white">Details</a>
+
+
+                <th:block sec:authorize = "hasRole('ROLE_MODERATOR')">
+
+
                 <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success font-weight-bold text-white">Edit</a>
                 <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger font-weight-bold text-white">Delete</a>
+
+                </th:block>
             </td>
         </tr>
         </th:block>

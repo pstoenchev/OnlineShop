@@ -2,7 +2,7 @@
 
     <th:block sec:authorize = "isAnonymous()">
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded font-weight-bold">
-            <a class="navbar-brand" th:href="@{/}">✳✶  🎀  𝒫𝓇🍑𝒹𝓊𝒸𝓉 𝒮𝒽💙𝓅  🎀  ✶✳</a>
+            <a class="navbar-brand" th:href="@{/}">✳ 𝒫harmacy✳</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#guestNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,7 +24,7 @@
     <th:block sec:authorize="isAuthenticated()">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded font-weight-bold">
-            <a class="navbar-brand" th:href="@{/home}">✳✶  🎀  𝒫𝓇🍑𝒹𝓊𝒸𝓉 𝒮𝒽💙𝓅  🎀  ✶✳</a>
+            <a class="navbar-brand" th:href="@{/home}">>✳ 𝒫harmacy✳</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="userNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,6 +33,15 @@
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/home}">Home</a>
                     </li>
+
+
+                    <li class="nav-item active">
+
+                        <a class="nav-link" th:href="@{/products/all}">Products</a>
+
+                    </li>
+
+
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/users/profile}">Profile</a>
                     </li>

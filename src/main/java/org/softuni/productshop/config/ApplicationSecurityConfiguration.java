@@ -19,7 +19,7 @@ class WebMvcSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/favicon.ico").permitAll()
                 .antMatchers("/", "/users/login", "/users/register").anonymous()
                 .anyRequest().authenticated()
                 .and()

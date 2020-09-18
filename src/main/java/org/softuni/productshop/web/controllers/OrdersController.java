@@ -23,6 +23,7 @@ public class OrdersController  extends BaseController{
     private final ModelMapper modelMapper;
     private final OrderService orderService;
     private final ProductService productService;
+
     public OrdersController(ModelMapper modelMapper1, OrderService orderService, ProductService productService1){
         this.modelMapper = modelMapper1;
         this.orderService = orderService;
@@ -36,25 +37,20 @@ public class OrdersController  extends BaseController{
     public ModelAndView orderProduct(@PathVariable String id, ModelAndView modelAndView){
         ProductServiceModel productServiceModel = productService.findProductById(id);
         ProductDetailsViewModel viewModel = modelMapper.map(productServiceModel, ProductDetailsViewModel.class);
-        modelAndView.addObject("product", viewModel);
-        return super.view("order/product", modelAndView);
+        modelAndView.addObject("order", viewModel);
+        return super.view("product", modelAndView);
 
     }
-    @PostMapping("/submit")
-    public void submitOrder(@ModelAttribute ProductOrderRequestModel model, Principal principal){
-        String name = principal.getName();
-        orderService.CreateOrder(model.getId(), name);
 
 
-
-    }
     @GetMapping("/all")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView getAllOrders(ModelAndView modelAndView){
         List<OrderServiceModel> viewModels = orderService.findAllProducts()
                 .stream()
                 .map(o -> modelMapper.map(o, OrderServiceModel.class))
                 .collect(Collectors.toList());
-        modelAndView.addObject("orders" , viewModels);
+        modelAndView.addObject("order" , viewModels);
 
 
 

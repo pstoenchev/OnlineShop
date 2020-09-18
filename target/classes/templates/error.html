@@ -10,8 +10,13 @@
 </header>
 
 <h1 th:text="${message}"> </h1>
+
+<h4 class="text-muted">Error 404 - Page not found</h4>
+
+<a class="dropdown-item" th:href="@{/home}">Return to home page!!</a>
+
 <footer>
-    <th:block th:include="~{/footer}"></th:block>
+    <th:block th:include="~{/users/profile}"></th:block>
 </footer>
 </body>
 </html>

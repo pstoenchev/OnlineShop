@@ -1,6 +1,5 @@
 package org.softuni.productshop.web.controllers;
 
-import org.dom4j.rule.Mode;
 import org.modelmapper.ModelMapper;
 import org.softuni.productshop.domain.entities.Product;
 import org.softuni.productshop.domain.models.binding.ProductAddBindingModel;

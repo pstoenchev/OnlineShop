@@ -14,32 +14,35 @@
     <div class="jumbotron bg-light">
 
         <div class="text-center">
-            <img th:src="${product.url}"
+            <img th:src="${order.url}"
                  width="350" height="350" alt="Product">
         </div>
+
+        <
         <div class="row">
             <div class="col col-md-12 text-center mt-5">
-                <h1 th:text="${product.name}"></h1>
+                <h1 th:text="${order.name}"></h1>
             </div>
         </div>
         <div class="row">
             <div class="col col-md-12 text-center mt-3">
-                <h4 th:text="${product.description}"></h4>
+                <h4 th:text="${order.description}"></h4>
             </div>
         </div>
         <div class="row">
             <div class="col col-md-12 text-center">
-                <h4 th:text="${product.price}"></h4>
+                <h4 th:text="${order.price}"></h4>
             </div>
         </div>
-        <form id="order-form" action="/products/order" method="post">
-            <input id="tb-id" type="hidden" name="id" th:value="${product.id}" />
+        <form id="order-form" action="/api/order/submit" method="post">
+            <input id="tb-id" type="hidden" name="id" th:value="${order.id}" />
 
 
             <div class="button-holder d-flex justify-content-center">
 
                 <button id="btn-submit-order" type="submit" class="btn btn-success">Order Product</button>
             </div>
+            -->
 
         </form>
     </div>

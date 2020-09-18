@@ -105,21 +105,21 @@ public class UserController extends BaseController {
     public ModelAndView setUser(@PathVariable String id){
         this.userService.setUserRole(id, "user");
 
-        return super.view("/users/all");
+        return super.view("/all-users");
 
     }
     @PostMapping("/set-moderator/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView setModerator(@PathVariable String id){
         this.userService.setUserRole(id, "moderator");
-        return super.view("/users/all");
+        return super.view("/all-users");
 
     }
     @PostMapping("/set-admin/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView setAdmin(@PathVariable String id){
         this.userService.setUserRole(id, "admin");
-        return super.view("/admin/all");
+        return super.view("/all-users");
 
     }
 }
